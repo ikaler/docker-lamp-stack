@@ -3,7 +3,7 @@ FROM php:7.4-apache
 LABEL maintainer="inderjeet@gmail.com"
 
 # Define user for the container
-ENV user=inder
+ENV user=docker
 ENV uid=1000
 
 # Install system dependencies
