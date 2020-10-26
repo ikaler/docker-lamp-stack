@@ -22,11 +22,17 @@ $ docker-compose up -d
 $ docker-compose down
 ```
 
-### For terminal access to Containers:
+### Access containers via terminal:
 ```
 $ docker exec -it ${CONTAINER_PREFIX}-apache-webserver /bin/bash
 $ docker exec -it ${CONTAINER_PREFIX}-mysql /bin/bash
 ```
+### To browse website
+Add following entry in `/etc/hosts` file 
+```
+127.0.0.1       website.local
+```
+Access site using `http://website.local:8080`
 
 ### VSCODE Xdebug Config settings
 ```
