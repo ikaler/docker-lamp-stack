@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  php:
+    image: php74-apache-dev
+    container_name: ${CONTAINER_PREFIX}-apache-webserver
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - 8080:80
+      - 8443:443
+    volumes:
+      - ../php/docker_volume:/var/www
+      - ./apache/vhosts.conf:/etc/apache2/sites-available/000-default.conf
+      - ./php/php.ini:/usr/local/etc/php/conf.d/local.ini
+    networks:
+      - lamp_network
+
+  mysql:
+    image: mysql57-dev
+    container_name: ${CONTAINER_PREFIX}-mysql
+    restart: unless-stopped
+    ports:
+      - 6603:3306
+    volumes:
+      - ../mysql/docker_volume:/var/lib/mysql:delegated
+      - ../php/docker_volume/logs:/var/www/logs
+      # - ./mysql/init.sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_USER: ${MYSQL_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - lamp_network
+
+networks:
+  lamp_network:
