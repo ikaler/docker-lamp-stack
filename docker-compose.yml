@@ -36,5 +36,23 @@ services:
     networks:
       - lamp_network
 
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: ${CONTAINER_PREFIX}-phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - 8081:80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_USER=${MYSQL_USERNAME}
+      - PMA_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ./phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+      - /sessions
+    networks:
+      - lamp_network
+
 networks:
   lamp_network:
