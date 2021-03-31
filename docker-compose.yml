@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   php:
-    image: php74-apache-dev
+    image: php74-apache-ssl-dev
     container_name: ${CONTAINER_PREFIX}-apache-webserver
     restart: unless-stopped
     depends_on:
@@ -12,6 +12,7 @@ services:
       - 8443:443
     volumes:
       - ../php/docker_volume:/var/www
+      - ./apache/ssl:/var/www/ssl
       - ./apache/vhosts.conf:/etc/apache2/sites-available/000-default.conf
       - ./php/php.ini:/usr/local/etc/php/conf.d/local.ini
     networks:
