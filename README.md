@@ -1,4 +1,4 @@
-# Docker LAMP Stack Setup
+# LAMP stack setup using Docker
 
 ## Setup LAMP environment using Docker with SSL
 
